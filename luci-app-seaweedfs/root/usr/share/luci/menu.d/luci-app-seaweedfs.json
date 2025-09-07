@@ -1,0 +1,11 @@
+{
+  "admin/services/seaweedfs": {
+    "title": "SeaweedFS",
+    "order": 60,
+    "action": {
+      "type": "view",
+      "path": "seaweedfs/form"
+    }
+  }
+}
+

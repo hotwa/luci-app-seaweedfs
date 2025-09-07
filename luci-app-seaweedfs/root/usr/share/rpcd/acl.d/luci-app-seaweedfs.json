@@ -1,0 +1,23 @@
+{
+  "luci-app-seaweedfs": {
+    "description": "Grant UCI and service control for luci-app-seaweedfs",
+    "read": {
+      "uci": ["seaweedfs"]
+    },
+    "write": {
+      "uci": ["seaweedfs"],
+      "ubus": {
+        "service": ["*"],
+        "luci": ["*"],
+        "file": ["*"],
+        "uci": ["*"],
+        "system": ["*"],
+        "iwinfo": ["*"],
+        "network": ["*"],
+        "rpc-sys": ["*"],
+        "rpc-service": ["*"]
+      }
+    }
+  }
+}
+

@@ -16,9 +16,11 @@ jobs:
           - channel: snapshots
             target: x86
             subtarget: 64
+          # Use a valid ARM64 target path. aarch64/generic does not exist as such.
+          # "armvirt/64" is a common generic ARM64 SDK target for building packages.
           - channel: snapshots
-            target: aarch64
-            subtarget: generic
+            target: armvirt
+            subtarget: 64
 
     steps:
       - name: Checkout
@@ -38,13 +40,26 @@ jobs:
           CHANNEL: ${{ matrix.channel }}
           TARGET: ${{ matrix.target }}
           SUBTARGET: ${{ matrix.subtarget }}
+          SDK_URL_OVERRIDE: ${{ matrix.sdk_url_override || '' }}
         run: |
           set -euo pipefail
-          if [ "$CHANNEL" = "snapshots" ]; then
-            BASE_URL="https://downloads.openwrt.org/snapshots/targets/${TARGET}/${SUBTARGET}/"
+          if [ -n "${SDK_URL_OVERRIDE}" ]; then
+            BASE_URL="${SDK_URL_OVERRIDE}"
           else
-            # For releases, CHANNEL should be like 'releases/24.10.0'
-            BASE_URL="https://downloads.openwrt.org/${CHANNEL}/targets/${TARGET}/${SUBTARGET}/"
+            if [ "$CHANNEL" = "snapshots" ]; then
+              if [ -n "${SUBTARGET}" ]; then
+                BASE_URL="https://downloads.openwrt.org/snapshots/targets/${TARGET}/${SUBTARGET}/"
+              else
+                BASE_URL="https://downloads.openwrt.org/snapshots/targets/${TARGET}/"
+              fi
+            else
+              # For releases, CHANNEL should be like 'releases/24.10.0'
+              if [ -n "${SUBTARGET}" ]; then
+                BASE_URL="https://downloads.openwrt.org/${CHANNEL}/targets/${TARGET}/${SUBTARGET}/"
+              else
+                BASE_URL="https://downloads.openwrt.org/${CHANNEL}/targets/${TARGET}/"
+              fi
+            fi
           fi
           echo "Base URL: $BASE_URL"
           # Find SDK tarball name (host toolchain for Linux x86_64)

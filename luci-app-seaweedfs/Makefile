@@ -35,11 +35,14 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_CONF) ./files/etc/config/seaweedfs $(1)/etc/config/seaweedfs
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./files/etc/uci-defaults/90-seaweedfs-setup $(1)/etc/uci-defaults/90-seaweedfs-setup
-	# LuCI views/controllers
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
-	$(INSTALL_DATA) ./luasrc/controller/seaweedfs.lua $(1)/usr/lib/lua/luci/controller/seaweedfs.lua
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi
-	$(INSTALL_DATA) ./luasrc/model/cbi/seaweedfs.lua $(1)/usr/lib/lua/luci/model/cbi/seaweedfs.lua
+	# Modern LuCI JS view
+	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/seaweedfs
+	$(INSTALL_DATA) ./htdocs/luci-static/resources/view/seaweedfs/form.js $(1)/www/luci-static/resources/view/seaweedfs/form.js
+	# Menu + ACL
+	$(INSTALL_DIR) $(1)/usr/share/luci/menu.d
+	$(INSTALL_DATA) ./root/usr/share/luci/menu.d/luci-app-seaweedfs.json $(1)/usr/share/luci/menu.d/luci-app-seaweedfs.json
+	$(INSTALL_DIR) $(1)/usr/share/rpcd/acl.d
+	$(INSTALL_DATA) ./root/usr/share/rpcd/acl.d/luci-app-seaweedfs.json $(1)/usr/share/rpcd/acl.d/luci-app-seaweedfs.json
 	# i18n (optional)
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
 	[ -f ./po/zh-cn/seaweedfs.po ] && po2lmo ./po/zh-cn/seaweedfs.po $(1)/usr/lib/lua/luci/i18n/seaweedfs.zh-cn.lmo || true
