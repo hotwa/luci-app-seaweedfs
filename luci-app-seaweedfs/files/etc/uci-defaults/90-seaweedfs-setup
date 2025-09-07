@@ -1,0 +1,5 @@
+#!/bin/sh
+mkdir -p /opt/seaweedfs
+/etc/init.d/seaweedfs enable 2>/dev/null || true
+exit 0
+

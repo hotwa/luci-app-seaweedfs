@@ -1,0 +1,24 @@
+msgid "SeaweedFS"
+msgstr "SeaweedFS"
+
+msgid "Configure SeaweedFS service and startup options."
+msgstr "配置 SeaweedFS 服务与启动选项。"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Role"
+msgstr "角色"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Data Directory"
+msgstr "数据目录"
+
+msgid "Run as user"
+msgstr "运行用户"
+
+msgid "Extra Arguments"
+msgstr "额外参数"
+

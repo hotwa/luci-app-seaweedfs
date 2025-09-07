@@ -1,0 +1,7 @@
+config seaweedfs 'default'
+        option enabled '0'
+        option role 'server'
+        option data_dir '/opt/seaweedfs'
+        option extra_args ''
+        option user 'root'
+
